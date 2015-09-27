@@ -24,10 +24,13 @@ public class DBOpenHelper extends SQLiteOpenHelper {
 
     public static final String DATABASE_NAME = "phonelocation";
     public static final String DATABASE_TABLE = "phonelocation";
-    public static final int DATABASE_VERSION = 1;
+    public static final int DATABASE_VERSION = 2;
     public static final String DATABASE_CREATE = "create table " + DATABASE_TABLE
             + " (_id integer primary key autoincrement, "
             + "phone_number text, phone_location text, last_update long);";
+
+    public static final String UPDATE_TO_2 = "alter table " + DATABASE_TABLE
+            + " add mark_type int;";
 
     public DBOpenHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -40,6 +43,9 @@ public class DBOpenHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        if(oldVersion<2) {
+            db.execSQL(UPDATE_TO_2);
+        }
     }
 
 }
