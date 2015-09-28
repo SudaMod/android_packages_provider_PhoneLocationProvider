@@ -39,6 +39,7 @@ public class DBOpenHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(DATABASE_CREATE);
+	db.execSQL(UPDATE_TO_2);
     }
 
     @Override
